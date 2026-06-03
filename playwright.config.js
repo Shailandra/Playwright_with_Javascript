@@ -14,7 +14,8 @@ const config = ({
         timeout: 40 * 1000
     },
     use: {
-        browserName: 'chromium'
+        browserName: 'chromium',
+        headless : false
     },
     reporter: 'html',
 

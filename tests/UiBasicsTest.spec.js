@@ -1,4 +1,4 @@
-const { test } = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
 //test('First Playwright Test', testfunction)
 
@@ -14,10 +14,12 @@ test('First Playwright Test', async ({ browser, page }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
-    
+
 });
 
-test('First Playwright Test', async ({ page }) => {
+test.only('First Playwright Test', async ({ page }) => {
 
-    await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
+    await page.goto("https://www.google.com/");
+    console.log(await page.title());
+    await expect(page).toHaveTitle("Google")
 });
