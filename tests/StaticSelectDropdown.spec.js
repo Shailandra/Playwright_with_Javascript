@@ -49,7 +49,10 @@ test.only('Test static select dropdown', async ({ browser }) => {
         ]
     )
 
-    newPage
+    const text = await newPage.locator('.red').textContent()
+
+
+    //input value if need to grab the value from  editbox
 
 
 });
