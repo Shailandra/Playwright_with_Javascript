@@ -14,4 +14,6 @@
    page.waitFor
 
 8. page.pause()   ==> playwright inspector
+
+9. pressSequentially("ind") help us to enter Enter latter one by one
    
