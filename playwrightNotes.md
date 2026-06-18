@@ -16,4 +16,18 @@
 8. page.pause()   ==> playwright inspector
 
 9. pressSequentially("ind") help us to enter Enter latter one by one
+
+10. test('@API Place the order', async ({ page }) => {
+    await page.addInitScript(value => {
+
+        window.localStorage.setItem('token', value);
+    }, response.token);
+
+11. await context.storageState({ path: 'state.json' });
+    webContext = await browser.newContext({ storageState: 'state.json' });
    
+12. How to debug WebAPI + Automation [add --debug but you can't dubug WebAPI]
+    inside package.json
+     "scripts": {
+    "test":"npx playwright test ./tests/Section12/webAPIPart3.spec.js --headed"
+    },
