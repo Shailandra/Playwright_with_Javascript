@@ -31,3 +31,8 @@
      "scripts": {
     "test":"npx playwright test ./tests/Section12/webAPIPart3.spec.js --headed"
     },
+
+note : Need to watch section 12 again when requied for tracing
+
+Note : Section 13 need to be done for API Testing with playwright
+

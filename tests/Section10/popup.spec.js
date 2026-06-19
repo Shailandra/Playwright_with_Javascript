@@ -22,7 +22,7 @@ test('Browser navigation validation', async ({ page }) => {
     //page.on("close")
     
     page.on('dialog', dialog => dialog.accept());
-    await page.locator("confirm").click();
+    await page.locator("confirmbtn").click();
     await page.pause();
     //page.on('dialog', dialog => dialog.dismiss());
 
