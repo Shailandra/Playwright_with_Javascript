@@ -36,3 +36,5 @@ note : Need to watch section 12 again when requied for tracing
 
 Note : Section 13 need to be done for API Testing with playwright
 
+13. Page Object Manager
+
