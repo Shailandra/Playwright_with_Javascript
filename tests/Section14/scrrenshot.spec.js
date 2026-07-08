@@ -18,16 +18,16 @@ test('Browser navigation validation', async ({ page }) => {
     await page.screencast({path:'screenshot.png'})
     await expect(page.locator("displayed-text")).toBeHidden();
 
-    // //Java Popup
+    // Java Popup
 
-    // //page.on("close")
+    // page.on("close")
     
     // page.on('dialog', dialog => dialog.accept());
     // await page.locator("confirmbtn").click();
     // await page.pause();
-    // //page.on('dialog', dialog => dialog.dismiss());
-    //  const framesPage = await page.frameLocator("#courses-iframe");  //look for framename or frameid
-    // //const frame = page.frame({ name: 'my-frame' });
+    // page.on('dialog', dialog => dialog.dismiss());
+    // const framesPage = await page.frameLocator("#courses-iframe");  //look for framename or frameid
+    // const frame = page.frame({ name: 'my-frame' });
     // await framesPage.locator("li a[href*='lifetime-access']:visible").click();
     // const textCheck = await framesPage.locator(".text h2").textContent();
     // const subscriber = testCheck.split(" ")[1];
