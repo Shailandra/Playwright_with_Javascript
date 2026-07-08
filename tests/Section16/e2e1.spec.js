@@ -1,72 +1,55 @@
-const { test, expect } = require('@playwright/test');
-const { text } = require('node:stream/consumers');
-const {LoginPage} = require('/workspaces/Playwright_with_Javascript/pageObjects/LoginPage')
+const { test, expect } = require("@playwright/test");
+
+const { POManager } = require('../../pageObject/POManager')
+
+test("End to End Automation Learning", async ({ page }) => {
 
 
-test("End to End Automation Learning", async ({ browser }) => {
+  const poManager = new POManager(page);
+  // const context = await browser.newContext();
+  // const page = await context.newPage();
 
-    const context = await browser.newContext()
-    const page = await context.newPage()
+  const productName = "ZARA COAT 3";
+  const userName = "rathore.shanu1996@yopmail.com";
+  const password = "Sh@nu25895";
 
+  const loginPage = poManager.getLoginPage();
+  await loginPage.goto();
+  await loginPage.validLogin(userName, password);
 
-    const productName = 'ZARA COAT 3';
-    const userName = 'rathore.shanu1996@yopmail.com'
-    const password = 'Sh@nu25895';
+  //await page.locator('.card-body').first().waitFor()
 
-    const loginPage = new LoginPage(page);
-    loginPage.goto();
-    loginPage.validLogin(userName,password);
+  const dashboardPage = poManager.getDashboardPage();
+  await dashboardPage.searchProductAddCart(productName);
+  await dashboardPage.navigateToCart();
 
-    await page.waitForLoadState('networkidle');
-    await page.locator('.card-body').first().waitFor()
+  //await page.locator('div li').first().waitFor()
+  const bool = await page.locator(`h3:has-text("${productName}")`).isVisible();
+  expect(bool).toBeTruthy();
 
-    const titles = await page.locator('.card-body b').allTextContents();
-    console.log(titles)
-    const products = page.locator('.card-body');
-    const count = await products.count();
-    for (let i = 0; i < count; i++) {
-        const product = await products.nth(i).locator('b').textContent();
-        console.log(product)
-        if (product === productName) {
-            await products.nth(i).locator('text = Add To Cart').click()
-            break;
-        }
+  await page.locator("text=Checkout").click();
+
+  await page
+    .locator("//input[@placeholder='Select Country']")
+    .pressSequentially("ind");
+
+  const dropdown = await page.locator(".ta-results");
+  await dropdown.waitFor();
+  const optionCount = await dropdown.locator("button").count();
+  console.log(optionCount);
+
+  for (let i = 0; i < optionCount; i++) {
+    let text = await dropdown.locator("button").nth(i).textContent();
+    if (text.trim() === "India") {
+      console.log(text);
+      await dropdown.locator("button").nth(i).click();
+      break;
     }
+  }
 
-    await page.locator('[routerlink *= cart]').click();
-    // await page.waitForLoadState('networkidle');
+  await expect(page.locator("label[type='text']").first()).toHaveText(userName);
+  //await page.locator("//input[@class='input txt text-validated ng-pristine ng-valid ng-touched']")
+  await page.locator('a:has-text("PLACE ORDER")').click();
 
-    await page.locator('div li').first().waitFor()
-    const bool = await page.locator(`h3:has-text("${productName}")`).isVisible();
-    expect(bool).toBeTruthy();
-
-    await page.locator("text=Checkout").click()
-
-    await page.locator("//input[@placeholder='Select Country']").pressSequentially("ind")
-
-    const dropdown = await page.locator('.ta-results');
-    await dropdown.waitFor()
-    const optionCount = await dropdown.locator('button').count();
-    console.log(optionCount)
-
-    for (let i = 0; i < optionCount; i++) {
-        let text = await dropdown.locator('button').nth(i).textContent()
-        if (text.trim() === 'India') {
-            console.log(text)
-            await dropdown.locator('button').nth(i).click()
-            break;
-        }
-
-    }
-
-
-    await expect(page.locator("label[type='text']").first()).toHaveText(userName)
-    //await page.locator("//input[@class='input txt text-validated ng-pristine ng-valid ng-touched']")
-    await page.locator('a:has-text("PLACE ORDER")').click()
-
-
-
-
-    await page.pause()
-
-})
+  await page.pause();
+});
